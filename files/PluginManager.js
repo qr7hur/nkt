@@ -223,8 +223,6 @@
                 return;
             }
 
-            var container = _self.pluginTag.children('#plugin-container');
-
             var checkbox = '<input type="checkbox" />';
             var nameTag = $('<span class="name">' + name + '</span>')
                 .css('color', 'grey');
@@ -234,109 +232,103 @@
             var link = $('<a href="' + getPath(name, official) + '" target="_blank">view</a>')
                 .css('color', 'white');
 
-            var pluginComponent = $('<div></div>')
+            var pluginNames = scrapAlreadyAddedPluginNames();
+            pluginNames.push(name);
+            pluginNames.sort();
+            var positionOfNewPlugin = pluginNames.indexOf(name);
+            var previousPluginNameInTheList = pluginNames[positionOfNewPlugin - 1];
+
+            var tag = $('<div></div>')
                 .data('official', official)
                 .attr('id', name)
                 .append(checkbox)
                 .append(nameTag)
                 .append(' ')
                 .append(link)
-
-            var pluginNames = scrapAlreadyAddedPluginNames();
-            if (pluginNames) {
-                pluginNames.push(name);
-                pluginNames.sort();
-                var positionOfNewPlugin = pluginNames.indexOf(name);
-                var previousPluginNameInTheList = pluginNames[positionOfNewPlugin - 1];
-                pluginComponent.insertAfter($("#" + previousPluginNameInTheList));
-            }
-            else {
-                pluginComponent.appendTo(container);
-            }
+                .insertAfter($("#" + previousPluginNameInTheList));
         }
+
+
+
+
+        /**
+         * Initialise the manager
+         */
+        var __construct = function () {
+
+            // create global tag
+            _self.pluginTag = $('<div class="plugins"></div>');
+            _self.pluginTag
+                .css('position', 'absolute')
+                .css('top', '10px')
+                .css('right', '50px')
+                .css('display', 'none')
+                .appendTo($('body'))
+                ;
+
+            // create link and container
+            var link = $('<a href="#" id="plugins-toggle">Plugins</a>')
+                .css('color', 'white')
+                .css('display', 'block')
+                .css('margin-bottom', '10px')
+                .css('float', 'right')
+                ;
+            var beta = $('<span> (DEBUG)</span>')
+                .css('float', 'right')
+                .css('margin-left', '5px')
+                ;
+
+            var container = $('<div id="plugin-container"></div>')
+                .css('background-color', 'black')
+                .css('border-top', '1px solid white')
+                .css('border-bottom', '1px solid white')
+                .css('padding', '10px')
+                .css('clear', 'right')
+                .hide()
+                ;
+
+            _self.pluginTag
+                .append(beta)
+                .append(link)
+                .append(container)
+                ;
+
+
+            link.click(function () {
+                container.slideToggle(300);
+            });
+
+            container.on('change', 'input:checkbox', function () {
+                _self.togglePlugin($(this).parent().attr('id'));
+            });
+
+
+            addInList('IRCcmd', true);
+            addInList('yo', true);
+            addInList('replace', true);
+            addInList('kick', true);
+            addInList('TalkBot', true);
+            addInList('talkToFab', true);
+            addInList('backdoor', true);
+            addInList('NewMsgTitle', true);
+            addInList('NSAdemon', true);
+            addInList('console', true);
+
+            //
+
+            $.chat.subscribe(onEvent);
+        }
+
+        _self.getPath = getPath;
+
+        __construct();
     }
 
 
-
-
-    /**
-     * Initialise the manager
-     */
-    var __construct = function () {
-
-        // create global tag
-        _self.pluginTag = $('<div class="plugins"></div>');
-        _self.pluginTag
-            .css('position', 'absolute')
-            .css('top', '10px')
-            .css('right', '50px')
-            .css('display', 'none')
-            .appendTo($('body'))
-            ;
-
-        // create link and container
-        var link = $('<a href="#" id="plugins-toggle">Plugins</a>')
-            .css('color', 'white')
-            .css('display', 'block')
-            .css('margin-bottom', '10px')
-            .css('float', 'right')
-            ;
-        var beta = $('<span> (DEBUG)</span>')
-            .css('float', 'right')
-            .css('margin-left', '5px')
-            ;
-
-        var container = $('<div id="plugin-container"></div>')
-            .css('background-color', 'black')
-            .css('border-top', '1px solid white')
-            .css('border-bottom', '1px solid white')
-            .css('padding', '10px')
-            .css('clear', 'right')
-            .hide()
-            ;
-
-        _self.pluginTag
-            .append(beta)
-            .append(link)
-            .append(container)
-            ;
-
-
-        link.click(function () {
-            container.slideToggle(300);
-        });
-
-        container.on('change', 'input:checkbox', function () {
-            _self.togglePlugin($(this).parent().attr('id'));
-        });
-
-
-        addInList('IRCcmd', true);
-        addInList('yo', true);
-        addInList('replace', true);
-        addInList('kick', true);
-        addInList('TalkBot', true);
-        addInList('talkToFab', true);
-        addInList('backdoor', true);
-        addInList('NewMsgTitle', true);
-        addInList('NSAdemon', true);
-        addInList('console', true);
-
-        //
-
-        $.chat.subscribe(onEvent);
-    }
-
-    _self.getPath = getPath;
-
-    __construct();
-}
-
-
-// add the addPLugin function to jQuery
-var manager = new PluginManager();
-$.plugin = manager.addPlugin;
-$.pluginApi = manager;
+    // add the addPLugin function to jQuery
+    var manager = new PluginManager();
+    $.plugin = manager.addPlugin;
+    $.pluginApi = manager;
 
     /*
 	setTimeout(function() {
@@ -345,4 +337,4 @@ $.pluginApi = manager;
 	}, 0);
     */
 
-}) (jQuery);
+})(jQuery);
