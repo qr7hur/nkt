@@ -5,7 +5,8 @@
   "main": "web.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon ."
+    "start:dev": "dbconnstr=postgresql://localhost:5432/nkt NODE_ENV=dev nodemon .",
+    "dbinit": "dbconnstr=postgresql://localhost:5432/nkt node ./dbinit.js"
   },
   "keywords": [
     "heroku"
@@ -17,7 +18,7 @@
     "express": "~4.15.4",
     "jade": "~1.11.0",
     "logfmt": "~1.2.0",
-    "pg": "~7.x",
+    "pg": "^7.18.2",
     "pug": "~2.0.0-rc.3",
     "socket.io": "~2.0.3"
   },

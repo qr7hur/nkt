@@ -21,9 +21,12 @@ app
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .get('*', function (req, res, next) {
-    if (req.headers['x-forwarded-proto'] != 'https')
+    if (
+      req.headers['x-forwarded-proto'] != 'https' &&
+      process.env.NODE_ENV !== 'dev'
+    ) {
       res.redirect('https://nkt.herokuapp.com' + req.url);
-    else next();
+    } else next();
   })
   .get('/', function (req, res) {
     res.header(
