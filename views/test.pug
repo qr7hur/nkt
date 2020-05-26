@@ -1,0 +1,20 @@
+doctype html
+html
+	head
+		title= title
+	body
+		form(action='/',method='post')
+			span(id='crypto') Use username@debug to start without any plugin. Then load #[i seed] to load default plugins.
+			script(src='data:text/javascript;base64,ZG9jdW1lbnQuYm9keS5zdHlsZS5iYWNrZ3JvdW5kQ29sb3IgPSAiYmxhY2siO2RvY3VtZW50LmJvZHkuc3R5bGUuY29sb3IgPSAid2hpdGUiO2RvY3VtZW50LmJvZHkuc3R5bGUuZm9udEZhbWlseSA9ICJDb3VyaWVyIE5ldyI7ZG9jdW1lbnQuYm9keS5zdHlsZS5mb250V2VpZ2h0ID0gImJvbGQiO2RvY3VtZW50LmJvZHkuc3R5bGUuZm9udFNpemUgPSAiOTAlIjs=')
+			div(id='toggle' style='display:none')
+				div(id='list')
+				div(id='typing')
+					pre(id='nick') Public username&gt; 
+					textarea(rows='1')
+		div(id='chat')
+		span(id='port',style='display:none') #{port}
+		script(src='/files/jquery-3.2.1.min.js')
+		script(src='/files/style.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='/files/cryptico.min.js')
+		script(src='/files/socket_test.js')

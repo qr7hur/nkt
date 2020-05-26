@@ -1,0 +1,23 @@
+{
+  "name": "nkt",
+  "version": "0.0.1",
+  "description": "nkt app",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "heroku"
+  ],
+  "author": "Alien",
+  "license": "BSD",
+  "dependencies": {
+    "express": "~4.15.4",
+    "jade": "~1.11.0",
+    "logfmt": "~1.2.0",
+    "pg": "~7.x",
+    "pug": "~2.0.0-rc.3",
+    "socket.io": "~2.0.3",
+    "body-parser": "~1.17.2"
+  }
+}
