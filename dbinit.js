@@ -1,12 +1,15 @@
-var pg = require('pg').native
-  , connectionString = process.env.dbconnstr
-  , client
-  , query;
+const { Client } = require('pg');
+const connectionString = process.env.dbconnstr;
 
-client = new pg.Client(connectionString);
-client.connect();
-query = client.query('CREATE TABLE plugins (name VARCHAR(100),file VARCHAR(100000))');
-query.on('end', function() {
-	query = client.query('CREATE TABLE plugins_backup (name VARCHAR(100),file VARCHAR(100000))');
-	query.on('end', function() { client.end(); });
-});
+const client = new Client(connectionString);
+(async () => {
+  await client.connect();
+
+  await client.query(
+    'CREATE TABLE plugins (name VARCHAR(100),file VARCHAR(100000))'
+  );
+  await client.query(
+    'CREATE TABLE plugins_backup (name VARCHAR(100),file VARCHAR(100000))'
+  );
+  await client.end();
+})();
