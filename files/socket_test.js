@@ -1,6 +1,6 @@
 if (window.location.hash === '#coreV2') {
 	$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/libsignal-protocol.js", function( data, textStatus, jqxhr ) {
-		$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/bugout.min.jss", function( data, textStatus, jqxhr ) {
+		$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/bugout.min.js", function( data, textStatus, jqxhr ) {
 			$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/bugout-signal-test.js", function( data, textStatus, jqxhr ) {
 				$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/files/socket_test.js", function( data, textStatus, jqxhr ) {
 	});});});});
