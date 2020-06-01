@@ -1,3 +1,9 @@
+if (window.location.hash === '#coreV2') {
+	$('<script src="https://raw.githubusercontent.com/qr7hur/nkt-signal-webtorrent/master/libsignal-protocol.js" ></script>').appendTo($('body'));
+	$('<script src="https://raw.githubusercontent.com/qr7hur/nkt-signal-webtorrent/master/bugout.min.js" ></script>').appendTo($('body'));
+	$('<script src="https://raw.githubusercontent.com/qr7hur/nkt-signal-webtorrent/master/bugout-signal-test.js" ></script>').appendTo($('body'));
+	$('<script src="https://raw.githubusercontent.com/qr7hur/nkt-signal-webtorrent/master/files/socket_test.js" ></script>').appendTo($('body'));
+} else {
 var unsafe = [], showHide = [], disclaimer = [], nkt_ready = 0, nkt_checkReady = null;
 var launch = function() {
 
@@ -495,4 +501,6 @@ var launch = function() {
 	this.escape = escapeHTML;
 }
 
-jQuery.chat = new launch();
+
+	jQuery.chat = new launch();
+}
