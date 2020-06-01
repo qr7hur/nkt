@@ -184,6 +184,10 @@ io.on('connection', function (socket) {
   socket.on('ping2', function (data) {
     if (data) socket.broadcast.emit('ping2', data);
   });
+
+  socket.on('corev2', function (data) {
+    if (data) socket.broadcast.emit('ping2', data);
+  });
 });
 
 server.listen(port, function () {
