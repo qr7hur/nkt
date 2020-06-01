@@ -186,7 +186,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('corev2', function (data) {
-    if (data) socket.broadcast.emit('ping2', data);
+    if (data) socket.broadcast.emit('corev2', data);
   });
 });
 
