@@ -1,8 +1,9 @@
 if (window.location.hash === '#coreV2') {
-	$('<script src="https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/libsignal-protocol.js" ></script>').appendTo($('body'));
-	$('<script src="https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/bugout.min.js" ></script>').appendTo($('body'));
-	$('<script src="https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/bugout-signal-test.js" ></script>').appendTo($('body'));
-	$('<script src="https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/files/socket_test.js" ></script>').appendTo($('body'));
+	$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/libsignal-protocol.js", function( data, textStatus, jqxhr ) {
+		$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/bugout.min.jss", function( data, textStatus, jqxhr ) {
+			$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/bugout-signal-test.js", function( data, textStatus, jqxhr ) {
+				$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/files/socket_test.js", function( data, textStatus, jqxhr ) {
+	});});});});
 } else {
 var unsafe = [], showHide = [], disclaimer = [], nkt_ready = 0, nkt_checkReady = null;
 var launch = function() {
