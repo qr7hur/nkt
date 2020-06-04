@@ -1,4 +1,4 @@
-if (window.location.hash === '#coreV2') {
+if (window.location.hash !== '#coreV1') {
 	
 	//$.getScript( "https://combinatronics.com/qr7hur/nkt-signal-webtorrent/master/libsignal-protocol.js", function( data, textStatus, jqxhr ) {
 	$.getScript( "/files/libsignal-protocol.min.js", function( data, textStatus, jqxhr ) {
