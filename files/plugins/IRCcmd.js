@@ -438,13 +438,14 @@ var IRCcmd = function () {
 					else{
                         if (hasGithubPluginsLoaded) {
                             var ifr = document.getElementById('githubPlugins').contentWindow;
-                            ifr.postMessage(JSON.stringify({ action: "commit", data: {
+                            ifr.postMessage(JSON.stringify({ action: "create", data: {
                                 name,
+                                sha: $.chat.githubShas[name],
                                 isPrivate,
                                 text: file
                             } }), allowedFrameOrigin);
-                            $.chat.send('<script>'+file+'</script>');
-                            $.chat.send('/me uploaded plugin '+name+', click previous message to actuate changes, then load it if unloaded.');
+                            //$.chat.send('<script>'+file+'</script>');
+                            //$.chat.send('/me uploaded plugin '+name+', click previous message to actuate changes, then load it if unloaded.');
                         }// else {
                             $.ajax({
                                 type: 'POST',
@@ -460,8 +461,57 @@ var IRCcmd = function () {
                             });
                         //}
 					}
-				}catch(e){$.chat.write("Invalid syntax ! Command is /plugin add MyPluginName public|private MyPluginCode",'');}
-				break;
+				}catch(e){
+                    console.error(e);
+                    $.chat.write("Invalid syntax ! Command is /plugin add MyPluginName public|private MyPluginCode",'');
+                }
+                break;
+                
+                case 'up':
+                case 'update':
+                    // TODO LATER : error on not logged to github or expired token
+                    try{
+                    var hasGithubPluginsLoaded = $.pluginApi.pluginList().loaded.indexOf('githubPlugins') > -1;
+                    var tempName = $.trim(params);
+                    var afterName = tempName.substring(tempName.indexOf(' ')+1);
+                    var name = afterName.split(' ')[0].replace(/\W/g, '');
+                    var afterPrivate = afterName.substring(afterName.indexOf(' ')+1);
+                    var isPrivate = afterPrivate.split(' ')[0].replace(/\W/g, '') !== 'public';
+                    var file = afterPrivate.substring(afterPrivate.indexOf(' ')+1);
+                    var sendPlugin = {};
+                    sendPlugin.pluginName = name;
+                    sendPlugin.pluginFile = file;
+                    //try{
+                        if(afterPrivate.split(' ')[0].charAt(0) == '$') $.chat.write("Don't forget the plugin name ! Command is /plugin update  MyPluginName public|private MyPluginCode",'');
+                        else if(file.split('name')[1].split(',')[0].indexOf("'"+name+"'") <0 && file.split('name')[1].split(',')[0].indexOf('"'+name+'"') < 0) $.chat.write('Plugin names mismatch. Declared: '+name+', Coded'+file.split('name')[1].split(',')[0],'');
+                        else{
+                            if (hasGithubPluginsLoaded) {
+                                var ifr = document.getElementById('githubPlugins').contentWindow;
+                                ifr.postMessage(JSON.stringify({ action: "update", data: {
+                                    name,
+                                    sha: $.chat.githubShas[name],
+                                    isPrivate,
+                                    text: file
+                                } }), allowedFrameOrigin);
+                                //$.chat.send('<script>'+file+'</script>');
+                                //$.chat.send('/me uploaded plugin '+name+', click previous message to actuate changes, then load it if unloaded.');
+                            }// else {
+                                $.ajax({
+                                    type: 'POST',
+                                    data: JSON.stringify(sendPlugin),
+                                    contentType: 'application/json',
+                                    url: '/plugin-add',						
+                                    success: function(data) {
+                                        $('<iframe src="/PluginManager.js" />').css('display','none').appendTo($('body')).on('load', function(){
+                                            $.chat.send('<script>'+file+'</script>');
+                                            $.chat.send('/me uploaded plugin '+name+', click previous message to actuate changes, then load it if unloaded.');
+                                        });
+                                    }
+                                });
+                            //}
+                        }
+                    }catch(e){$.chat.write("Invalid syntax ! Command is /plugin update MyPluginName public|private MyPluginCode",'');}
+                    break;
 				
 			case 'rm':
             case 'remove':
@@ -489,7 +539,7 @@ var IRCcmd = function () {
                         contentType: 'application/json',
                         url: '/plugin-remove',						
                         success: function(data) {
-                            $.chat.send('/me removed plugin '+name);
+                            //$.chat.send('/me removed plugin '+name);
                         }
                     });
                 //}
@@ -590,7 +640,7 @@ var IRCcmd = function () {
         plugin : { 
             func: plugin, 
             description:'Plugins management. Only plugins in <i>italic</i> can be added/removed/replaced/restored. "restore" restores a plugin to a random backup version', 
-            proto:'/plugin (list|load|unload|add|remove|restore|view) | (ls|ld|ud|ad|rm|rs|vi) [plugin name] [public|private] [plugin code]'
+            proto:'/plugin (list|load|unload|add|update|remove|restore|view) | (ls|ld|ud|ad|up|rm|rs|vi) [plugin name] [public|private] [plugin code]'
         },
     }
     
