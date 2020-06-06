@@ -38,8 +38,9 @@
 
         addInList(settings.name, false);
 
-        if (_active.indexOf(settings.name) >= 0) {
-          //settings.init(); // prevent double init
+        if (_active.indexOf(settings.name) >= 0 && !settings.inited) {
+          settings.init();
+          settings.inited = true;// prevent double init
         }
       }
     };
@@ -84,13 +85,14 @@
         throw 'plugin ' + name + ' not found !';
       }
 
-      if (_active.indexOf(name) >= 0) {
+      if (_active.indexOf(name) >= 0 && _plugins[name].inited) {
         pluginTag.children('input:checkbox').attr('checked', false);
         pluginTag.children('.name').css('color', 'grey');
 
         var i = _active.indexOf(name);
         _active.splice(i, 1);
         _plugins[name].stop();
+        _plugins[name].inited = false; // prevent double stopping
       }
     };
 
