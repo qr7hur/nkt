@@ -39,7 +39,7 @@
         addInList(settings.name, false);
 
         if (_active.indexOf(settings.name) >= 0) {
-          settings.init();
+          //settings.init(); // prevent double init
         }
       }
     };
