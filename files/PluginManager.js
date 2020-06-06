@@ -61,7 +61,7 @@
 
         _active.push(name);
 
-        if (_plugins[name]) {
+        if (_plugins[name] && !_plugins[name].inited) {
           _plugins[name].init();
         } else if (!$('#script_' + name).get(0)) {
           $(
