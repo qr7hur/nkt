@@ -5,11 +5,13 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var logfmt = require('logfmt');
+/*
 var fs = require('fs');
 var pg = require('pg'),
   connectionString = process.env.dbconnstr,
   client,
   query;
+  */
 
 var app = express();
 var server = http.Server(app);
@@ -42,6 +44,7 @@ app
   .get('/port.js', function (req, res) {
     res.send('var port=' + port + ';');
   })
+  /*
   .get('/PluginManager.js', function (req, res) {
     res.setHeader('content-type', 'text/javascript');
     var names = [],
@@ -175,7 +178,7 @@ app
       } else res.send(403);
     });
   });
-
+*/
 io.on('connection', function (socket) {
   socket.on('new_msg2', function (data) {
     if (data) socket.broadcast.emit('new_msg2', data);
