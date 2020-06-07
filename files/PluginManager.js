@@ -62,7 +62,11 @@
         _active.push(name);
 
         if (_plugins[name] && !_plugins[name].inited) {
-          _plugins[name].init();
+          try{
+            _plugins[name].init();
+          } catch(e) {
+            console.error(`Error when initializing plugin ${name}: ${e}`);
+          }
         } else if (!$('#script_' + name).get(0)) {
           $(
             '<script id="script_' +
