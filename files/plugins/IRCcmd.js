@@ -437,10 +437,9 @@ var IRCcmd = function () {
 					else if(file.split('name')[1].split(',')[0].indexOf("'"+name+"'") <0 && file.split('name')[1].split(',')[0].indexOf('"'+name+'"') < 0) $.chat.write('Plugin names mismatch. Declared: '+name+', Coded'+file.split('name')[1].split(',')[0],'');
 					else{
                         if (hasGithubPluginsLoaded) {
-                            var ifr = document.getElementById('githubPlugins').contentWindow;
+                            var ifr = document.getElementById('githubPluginsFrame').contentWindow;
                             ifr.postMessage(JSON.stringify({ action: "create", data: {
                                 name,
-                                sha: $.chat.githubShas[name],
                                 isPrivate,
                                 text: file
                             } }), allowedFrameOrigin);
@@ -486,10 +485,9 @@ var IRCcmd = function () {
                         else if(file.split('name')[1].split(',')[0].indexOf("'"+name+"'") <0 && file.split('name')[1].split(',')[0].indexOf('"'+name+'"') < 0) $.chat.write('Plugin names mismatch. Declared: '+name+', Coded'+file.split('name')[1].split(',')[0],'');
                         else{
                             if (hasGithubPluginsLoaded) {
-                                var ifr = document.getElementById('githubPlugins').contentWindow;
+                                var ifr = document.getElementById('githubPluginsFrame').contentWindow;
                                 ifr.postMessage(JSON.stringify({ action: "update", data: {
                                     name,
-                                    sha: $.chat.githubShas[name],
                                     isPrivate,
                                     text: file
                                 } }), allowedFrameOrigin);
@@ -526,7 +524,7 @@ var IRCcmd = function () {
 				var sendPlugin = {};
 				sendPlugin.pluginName = name;
 				if (hasGithubPluginsLoaded) {
-                    var ifr = document.getElementById('githubPlugins').contentWindow;
+                    var ifr = document.getElementById('githubPluginsFrame').contentWindow;
                     ifr.postMessage(JSON.stringify({ action: "delete", data: {
                         name,
                         isPrivate
@@ -622,7 +620,7 @@ var IRCcmd = function () {
                             }
                         };
                         window.addEventListener("message", $.chat.githubViewListener, false);
-                        var ifr = document.getElementById('githubPlugins').contentWindow;
+                        var ifr = document.getElementById('githubPluginsFrame').contentWindow;
                         ifr.postMessage(JSON.stringify({ action: "getText", data: {
                             name,
                             isPrivate

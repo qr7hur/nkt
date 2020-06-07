@@ -1,13 +1,16 @@
 $.plugin({
     name: 'githubPlugins',
     init: function() {
-      if (document.getElementById('iframe')) return;
-      this.listener = window.addEventListener("message", this.receiveMessage, false);
-      $.chat.githubShas = {};
-      $('#plugin-container').prepend('<iframe id="githubPlugins" style="border:0;height:50px;width:200px" src="https://fabiendaou.github.io/index.html"></iframe>');
+      window.removeEventListener("message", $.chat.githubPluginsListener);
+      $.chat.githubPluginsListener = this.receiveMessage;
+      window.addEventListener("message", $.chat.githubPluginsListener, false);
+      if (!document.getElementById('githubPluginsFrame')) {
+        $('#plugin-container').prepend('<iframe id="githubPlugins" style="border:0;height:50px;width:200px" src="https://fabiendaou.github.io/index.html"></iframe>');
+      }
     },
     stop: function() {
-      window.removeEventListener("message", this.listener);
+      window.removeEventListener("message", $.chat.githubPluginsListener);
+      $.chat.githubPluginsListener = null;
       $('#githubPlugins').remove();
     },
     receiveMessage(event) {
@@ -20,7 +23,6 @@ $.plugin({
           case 'pluginsLoaded':
             for (let plugin of eventData.data) {
                 //console.log(plugin);
-                
                 try {
                     try {
                         // JSON ?
