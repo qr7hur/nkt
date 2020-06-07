@@ -445,7 +445,7 @@ var IRCcmd = function () {
                             } }), allowedFrameOrigin);
                             //$.chat.send('<script>'+file+'</script>');
                             //$.chat.send('/me uploaded plugin '+name+', click previous message to actuate changes, then load it if unloaded.');
-                        }// else {
+                        } else {
                             $.ajax({
                                 type: 'POST',
                                 data: JSON.stringify(sendPlugin),
@@ -458,7 +458,7 @@ var IRCcmd = function () {
                                     });
                                 }
                             });
-                        //}
+                        }
 					}
 				}catch(e){
                     console.error(e);
@@ -493,7 +493,7 @@ var IRCcmd = function () {
                                 } }), allowedFrameOrigin);
                                 //$.chat.send('<script>'+file+'</script>');
                                 //$.chat.send('/me uploaded plugin '+name+', click previous message to actuate changes, then load it if unloaded.');
-                            }// else {
+                            } else {
                                 $.ajax({
                                     type: 'POST',
                                     data: JSON.stringify(sendPlugin),
@@ -506,7 +506,7 @@ var IRCcmd = function () {
                                         });
                                     }
                                 });
-                            //}
+                            }
                         }
                     }catch(e){$.chat.write("Invalid syntax ! Command is /plugin update MyPluginName public|private MyPluginCode",'');}
                     break;
@@ -530,7 +530,7 @@ var IRCcmd = function () {
                         isPrivate
                     } }), allowedFrameOrigin);
                     $.chat.send('/me removed plugin '+name);
-                }// else {
+                } else {
                     $.ajax({
                         type: 'POST',
                         data: JSON.stringify(sendPlugin),
@@ -540,7 +540,7 @@ var IRCcmd = function () {
                             //$.chat.send('/me removed plugin '+name);
                         }
                     });
-                //}
+                }
                 }catch(e){$.chat.write("Invalid syntax ! Command is /plugin rm MyPluginName public|private",'');}
 				break;
 				
