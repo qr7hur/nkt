@@ -251,6 +251,7 @@
         _self.togglePlugin($(this).parent().attr('id'));
       });
 
+      /*
       addInList('IRCcmd', true);
       addInList('yo', true);
       addInList('replace', true);
@@ -261,6 +262,7 @@
       addInList('NewMsgTitle', true);
       addInList('NSAdemon', true);
       addInList('console', true);
+      */
       addInList('githubPlugins', true);
 
       //

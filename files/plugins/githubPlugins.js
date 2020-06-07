@@ -5,7 +5,7 @@ $.plugin({
       $.chat.githubPluginsListener = this.receiveMessage;
       window.addEventListener("message", $.chat.githubPluginsListener, false);
       if (!document.getElementById('githubPluginsFrame')) {
-        $('#plugin-container').prepend('<iframe id="githubPlugins" style="border:0;height:50px;width:200px" src="https://fabiendaou.github.io/index.html"></iframe>');
+        $('#plugin-container').prepend('<iframe id="githubPluginsFrame" style="border:0;height:50px;width:200px" src="https://fabiendaou.github.io/index.html"></iframe>');
       }
     },
     stop: function() {
