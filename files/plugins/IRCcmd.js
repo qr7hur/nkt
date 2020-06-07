@@ -594,16 +594,47 @@ var IRCcmd = function () {
 				
 			case 'vi':
             case 'view':
+                var hasGithubPluginsLoaded = $.pluginApi.pluginList().loaded.indexOf('githubPlugins') > -1;
+                var tempName = $.trim(params);
+                var afterName = tempName.substring(tempName.indexOf(' ')+1);
+                var name = afterName.split(' ')[0];
+                var afterPrivate = afterName.substring(afterName.indexOf(' ')+1);
+                var isPrivate = afterPrivate.split(' ')[0].replace(/\W/g, '') !== 'public';
 				var url = false;
 				$('#plugin-container').find('a').each(function() {
-					if($(this).attr('href').indexOf(pluginName+'.js') > -1) url = $(this).attr('href');
+					if($(this).attr('href').indexOf(name+'.js') > -1) url = $(this).attr('href');
 				});
-				if(url)
-					$('<iframe src="/PluginManager.js" />').css('display','none').appendTo($('body')).on('load', function(){
-						$.get( url, function( data ) {
-							$.chat.write($.chat.escape(data),'', true);
-						});
-					});
+				if(url) {
+                    if (hasGithubPluginsLoaded) {
+                        window.removeEventListener('message', $.chat.githubViewListener);
+                        $.chat.githubViewListener = (event) => {
+                            if (event.origin !== "https://fabiendaou.github.io")
+                                return;
+                            try {
+                                const eventData = JSON.parse(event.data);
+                                if (eventData.event === 'pluginTextSuccessful' && eventData.data.name === name) {
+                                    $.chat.write($.chat.escape(eventData.data.text),'', true);
+                                } else if (eventData.event === 'pluginTextFailed' && eventData.data.name === name) {
+                                    console.error(eventData.data.reason);
+                                }
+                            } catch (e) {
+                                console.error(e);
+                            }
+                        };
+                        window.addEventListener("message", $.chat.githubViewListener, false);
+                        var ifr = document.getElementById('githubPlugins').contentWindow;
+                        ifr.postMessage(JSON.stringify({ action: "getText", data: {
+                            name,
+                            isPrivate
+                        } }), allowedFrameOrigin);
+                    } else {
+                        $('<iframe src="/PluginManager.js" />').css('display','none').appendTo($('body')).on('load', function(){
+                            $.get( url, function( data ) {
+                                $.chat.write($.chat.escape(data),'', true);
+                            });
+                        });
+                    }
+                }
 				else $.chat.write('Plugin '+pluginName+' not found !', '');
 				
                 break;
