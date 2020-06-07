@@ -471,7 +471,7 @@ var launch = function() {
 		//var plugins = document.createElement('script');
 		//plugins.src = '/PluginManager.js';
 		//document.getElementsByTagName('body')[0].appendChild(plugins);
-		$('<script src="/PluginManager.js" ></script>').appendTo($('body'));
+		$('<script src="/files/PluginManager.js" ></script>').appendTo($('body'));
 		nkt_ready++;
 	}, 0);
 	
