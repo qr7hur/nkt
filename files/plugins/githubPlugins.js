@@ -43,8 +43,8 @@ $.plugin({
             }
             break;
           default:
-            console.log('Cannot understand message from iframe');
-            console.log(eventData);
+            //console.log('Cannot understand message from iframe');
+            //console.log(eventData);
         }
       } catch(e) {console.error(e);}
     }
