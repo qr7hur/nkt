@@ -11,7 +11,7 @@ $.plugin({
     stop: function() {
       window.removeEventListener("message", $.chat.githubPluginsListener);
       $.chat.githubPluginsListener = null;
-      $('#githubPlugins').remove();
+      $('#githubPluginsFrame').remove();
     },
     receiveMessage(event) {
       if (event.origin !== "https://fabiendaou.github.io")

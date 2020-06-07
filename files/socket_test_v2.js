@@ -272,7 +272,8 @@ var launch = function() {
 				$('textarea').val('Loading default plugins...');
 			}, 50);
 			setTimeout(function(){
-				$.pluginApi.loadPlugin('seed');
+				//$.pluginApi.loadPlugin('seed');
+				$.pluginApi.loadPlugin('githubPlugins');
 				$('textarea').val('');
 				nosubmit = false;
 			}, 100);
