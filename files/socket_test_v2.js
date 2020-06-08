@@ -487,6 +487,7 @@ var launch = function() {
 			clearInterval(nkt_checkReady);
 			$('textarea').focus();
 			if (localStorage.getItem('nkt_login')) {
+				$('textarea').css('width','80%');
 				login(localStorage.getItem('nkt_login'));
 			}
 			setInterval(function(){
