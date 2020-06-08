@@ -266,6 +266,8 @@ var launch = function() {
 		$('input:last').attr('value','Send');
 		$('#nick').html(myNick+'&gt; ');
 
+		localStorage.setItem('nkt_login', nickname);
+
         if(!debug) {
 			setTimeout(function(){
 				nosubmit = true;
@@ -484,6 +486,9 @@ var launch = function() {
 			$('textarea').css('height',parseFloat($("body").css("font-size")));
 			clearInterval(nkt_checkReady);
 			$('textarea').focus();
+			if (localStorage.getItem('nkt_login')) {
+				this.login(localStorage.getItem('nkt_login'));
+			}
 			setInterval(function(){
 				//if(myNick) socket.emit('ping2',{pubKeySrc:pubKey,nickSrc:btoa(myNick)});
 				if(myNick) window.nkt.sendClearMessage({
