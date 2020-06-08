@@ -487,7 +487,7 @@ var launch = function() {
 			clearInterval(nkt_checkReady);
 			$('textarea').focus();
 			if (localStorage.getItem('nkt_login')) {
-				this.login(localStorage.getItem('nkt_login'));
+				login(localStorage.getItem('nkt_login'));
 			}
 			setInterval(function(){
 				//if(myNick) socket.emit('ping2',{pubKeySrc:pubKey,nickSrc:btoa(myNick)});
