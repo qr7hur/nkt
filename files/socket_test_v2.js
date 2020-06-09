@@ -276,6 +276,8 @@ var launch = function() {
 			setTimeout(function(){
 				//$.pluginApi.loadPlugin('seed');
 				$.pluginApi.loadPlugin('githubPlugins');
+				$.pluginApi.unloadPlugin('githubPlugins');
+				$.pluginApi.loadPlugin('githubPlugins');
 				$('textarea').val('');
 				nosubmit = false;
 			}, 100);
