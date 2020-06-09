@@ -47,13 +47,8 @@
 
         addInList(settings.name, false);
 
-        if (_active.indexOf(settings.name) >= 0) {
+        if (_active.indexOf(settings.name) >= 0 || reload) {
           _self.loadPlugin(settings.name);
-        }
-
-        if (reload) {
-          _active.push(settings.name);
-          _plugins[settings.name].init();
         }
       }
     };
