@@ -34,7 +34,7 @@
       settings = $.extend({}, _pluginDefaults, settings);
 
       if (settings.name && settings.name != 'scriptName') {
-        if (_active.indexOf(settings.name) >= 0) {
+        if (_active.indexOf(settings.name) >= 0 && _plugins[settings.name]) {
           _self.unloadPlugin(settings.name);
         }
         _plugins[settings.name] = settings;
