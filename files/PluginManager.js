@@ -2,7 +2,7 @@
   function PluginManager() {
     var _self = this;
     var _plugins = {};
-    var _active = [];
+    var _active = {};
 
     var _pluginDefaults = {
       name: 'scriptName',
@@ -34,10 +34,10 @@
       settings = $.extend({}, _pluginDefaults, settings);
       var reload = false;
       if (settings.name && settings.name != 'scriptName') {
-        if (_active.indexOf(settings.name) >= 0 && _plugins[settings.name]) {
+        if (_active[settings.name] && _plugins[settings.name]) {
           try{
             _plugins[settings.name].stop();
-            _active.splice(_active.indexOf(settings.name), 1);
+            _active[settings.name] = false;
             reload = true;
           } catch(e) {
             console.error(`Error when stopping plugin ${name}: ${e}`);
@@ -47,7 +47,7 @@
 
         addInList(settings.name, false);
 
-        if (_active.indexOf(settings.name) >= 0 || reload) {
+        if (_active[settings.name] || reload) {
           _self.loadPlugin(settings.name);
         }
       }
@@ -63,11 +63,11 @@
         throw 'plugin ' + name + ' not found !';
       }
 
-      if (_active.indexOf(name) < 0) {
+      if (!_active[name]) {
         pluginTag.children('input:checkbox').attr('checked', true);
         pluginTag.children('.name').css('color', 'white');
 
-        _active.push(name);
+        _active[name] = true;
 
         if (_plugins[name]) {
           try{
@@ -97,14 +97,13 @@
         throw 'plugin ' + name + ' not found !';
       }
 
-      if (_active.indexOf(name) >= 0) {
+      if (_active[name]) {
         pluginTag.children('input:checkbox').attr('checked', false);
         pluginTag.children('.name').css('color', 'grey');
 
-        var i = _active.indexOf(name);
         try{
           _plugins[name].stop();
-          _active.splice(i, 1);
+          _active[name] = false;
         } catch(e) {
           console.error(`Error when stopping plugin ${name}: ${e}`);
         }
@@ -116,7 +115,7 @@
      * @param string name Name of the plugin
      */
     _self.togglePlugin = function (name) {
-      if (_active.indexOf(name) >= 0) {
+      if (_active[name]) {
         _self.unloadPlugin(name);
       } else {
         _self.loadPlugin(name);
@@ -138,7 +137,7 @@
         .each(function () {
           var name = $(this).attr('id');
 
-          if (_active.indexOf(name) >= 0) {
+          if (_active[name]) {
             list.loaded.push(name);
           } else {
             list.unloaded.push(name);
@@ -148,8 +147,11 @@
     };
 
     var onEvent = function (eventName, data) {
-      for (var i in _active) {
-        var plugin = _plugins[_active[i]];
+      for (let name in _active) {
+        if (!_active[name]) {
+          continue;
+        }
+        var plugin = _plugins[name];
         if (!plugin) {
           continue;
         }
