@@ -32,12 +32,11 @@
 
     _self.addPlugin = function (settings) {
       settings = $.extend({}, _pluginDefaults, settings);
-      var reload = false;
       if (settings.name && settings.name != 'scriptName') {
         if (_active[settings.name] && _plugins[settings.name]) {
           try{
             _plugins[settings.name].stop();
-            _active[settings.name] = false;
+            _active[settings.name] = null;
             reload = true;
           } catch(e) {
             console.error(`Error when stopping plugin ${name}: ${e}`);
@@ -47,7 +46,7 @@
 
         addInList(settings.name, false);
 
-        if (_active[settings.name] || reload) {
+        if (_active[settings.name] || _active[settings.name] === null) {
           _self.loadPlugin(settings.name);
         }
       }
