@@ -35,7 +35,11 @@
 
       if (settings.name && settings.name != 'scriptName') {
         if (_active.indexOf(settings.name) >= 0 && _plugins[settings.name]) {
-          _self.unloadPlugin(settings.name, true);
+          try{
+            _plugins[settings.name].stop();
+          } catch(e) {
+            console.error(`Error when stopping plugin ${name}: ${e}`);
+          }
         }
         _plugins[settings.name] = settings;
 
@@ -85,7 +89,7 @@
      * Unload a plugin
      * @param string name Name of the plugin
      */
-    _self.unloadPlugin = function (name, reload) {
+    _self.unloadPlugin = function (name) {
       var pluginTag = _self.pluginTag.find('#plugin-container #' + name);
       if (!pluginTag.length) {
         throw 'plugin ' + name + ' not found !';
@@ -98,9 +102,7 @@
         var i = _active.indexOf(name);
         try{
           _plugins[name].stop();
-          if (!reload) {
-            _active.splice(i, 1);
-          }
+          _active.splice(i, 1);
         } catch(e) {
           console.error(`Error when stopping plugin ${name}: ${e}`);
         }
