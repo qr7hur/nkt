@@ -6,12 +6,14 @@ $.plugin({
       window.addEventListener("message", $.chat.githubPluginsListener, false);
       if (!document.getElementById('githubPluginsFrame')) {
         $('#plugin-container').prepend('<iframe id="githubPluginsFrame" style="border:0;height:50px;width:200px" src="https://fabiendaou.github.io/index.html"></iframe>');
+      } else {
+        $('#githubPluginsFrame').show();
       }
     },
     stop: function() {
       window.removeEventListener("message", $.chat.githubPluginsListener);
       $.chat.githubPluginsListener = null;
-      $('#githubPluginsFrame').remove();
+      $('#githubPluginsFrame').hide();
     },
     receiveMessage(event) {
       if (event.origin !== "https://fabiendaou.github.io")
