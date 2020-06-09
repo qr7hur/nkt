@@ -39,7 +39,8 @@
         addInList(settings.name, false);
 
         if (_active.indexOf(settings.name) >= 0) {
-          settings.init();
+          _self.unloadPlugin(settings.name);
+          _self.loadPlugin(settings.name);
         }
       }
     };
@@ -93,8 +94,12 @@
         pluginTag.children('.name').css('color', 'grey');
 
         var i = _active.indexOf(name);
-        _active.splice(i, 1);
-        _plugins[name].stop();
+        try{
+          _plugins[name].stop();
+          _active.splice(i, 1);
+        } catch(e) {
+          console.error(`Error when stopping plugin ${name}: ${e}`);
+        }
       }
     };
 
