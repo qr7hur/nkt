@@ -34,12 +34,14 @@
       settings = $.extend({}, _pluginDefaults, settings);
       if (settings.name && settings.name != 'scriptName') {
         if (_active[settings.name] && _plugins[settings.name]) {
+          console.log('RELOADING ' + settings.name);
+          console.log('active is');
+          console.log(_active);
           try{
             _plugins[settings.name].stop();
             _active[settings.name] = null;
-            reload = true;
           } catch(e) {
-            console.error(`Error when stopping plugin ${name}: ${e}`);
+            console.error(`Error when stopping plugin ${settings.name}: ${e}`);
           }
         }
         _plugins[settings.name] = settings;
