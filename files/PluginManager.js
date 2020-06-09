@@ -34,12 +34,14 @@
       settings = $.extend({}, _pluginDefaults, settings);
 
       if (settings.name && settings.name != 'scriptName') {
+        if (_active.indexOf(settings.name) >= 0) {
+          _self.unloadPlugin(settings.name);
+        }
         _plugins[settings.name] = settings;
 
         addInList(settings.name, false);
 
         if (_active.indexOf(settings.name) >= 0) {
-          _self.unloadPlugin(settings.name);
           _self.loadPlugin(settings.name);
         }
       }
