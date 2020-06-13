@@ -68,7 +68,7 @@ var launch = function() {
 				
 				// write on window
 				//write_msg(msg.plaintext, atob(data.nickSrc));
-				write_msg(data.msg,  atob(data.nickSrc));
+				write_msg(data.plaintext,  atob(data.nickSrc));
 			}
 			//data.nickSrc = btoa(myNick);
 			//data.pubKeySrc = pubKey;
