@@ -1223,17 +1223,23 @@
         window.nkt = {};
         window.nkt.singleSwarmID = "nktRYLi0Sn7BEQSPfo3KOiewur1gec";
         window.nkt.trackers = [
-            "wss://hub.bugout.link",
+//            "wss://hub.bugout.link",
             "wss://tracker.openwebtorrent.com",
             "wss://tracker.btorrent.xyz",
+//	    "wss://tracker.fastcast.nz",
+//	    "wss://tube.privacytools.io:443/tracker/socket",
+//	    "wss://video.blender.org:443/tracker/socket"
         ];
         window.nkt.iceServers = [
             {
                 urls: [
-                    'stun:stun.l.google.com:19302',
+//                    'stun:stun.l.google.com:19302',
 //                    'stun:global.stun.twilio.com:3478',
 //                    'stun:stun.avigora.fr:3478',
-                    'stun:stun.1und1.de:3478'
+//                    'stun:stun.1und1.de:3478'
+                    'stun:stun.threema.ch:3478',
+                    'stun:stun.stunprotocol.org:3478',
+                    'stun:stun.root-1.de:3478',
                 ]
             },
             {
