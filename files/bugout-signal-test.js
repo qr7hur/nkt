@@ -1254,7 +1254,11 @@
             window.nkt.websocketEventName = 'nkt';
             window.nktVerbose = true;
         } else {
-            window.nkt.websocket = io("wss://" + window.location.hostname);
+            window.nkt.websocket = io(
+                (window.location.protocol === 'http:' ? "ws://" : "wss://")
+                + window.location.hostname
+                + (window.location.port ? ':' + window.location.port : '')
+            );
             window.nkt.websocketEventName = 'corev2';
         }
         window.nkt.mySwarm = startWebRTCServer();

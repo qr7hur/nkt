@@ -1,5 +1,7 @@
-var port = Number(process.env.PORT || 5000);
+var port = Number(process.env.PORT || 3000);
 
+var fs = require('fs');
+//var https = require('https');
 var http = require('http');
 var path = require('path');
 var express = require('express');
@@ -7,6 +9,11 @@ var bodyParser = require('body-parser');
 var logfmt = require('logfmt');
 
 var app = express();
+//var server = https.createServer({
+//        key:fs.readFileSync('server.key'),
+//        cert:fs.readFileSync('server.cert')
+//    },
+//    app);
 var server = http.Server(app);
 var io = require('socket.io')(server);
 
@@ -20,7 +27,8 @@ app
       req.headers['x-forwarded-proto'] != 'https' &&
       process.env.NODE_ENV !== 'dev'
     ) {
-      res.redirect('https://nkt.herokuapp.com' + req.url);
+      //res.redirect('https://' + req.headers.host + req.url);
+      next();
     } else next();
   })
   .get('/', function (req, res) {

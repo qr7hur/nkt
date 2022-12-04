@@ -3,7 +3,6 @@ var launch = function() {
 
 	var swit = false;
 	var nosubmit = false;
-	
 	var port = $('#port').html();
 	var pubKeys = [], cutLink = [], as = [];
 	var nicks = [];
