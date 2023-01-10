@@ -1225,7 +1225,7 @@
         window.nkt.trackers = [
 //            "wss://hub.bugout.link",
             "wss://tracker.openwebtorrent.com",
-            "wss://tracker.btorrent.xyz",
+//          "wss://tracker.btorrent.xyz",
 //	    "wss://tracker.fastcast.nz",
 //	    "wss://tube.privacytools.io:443/tracker/socket",
 //	    "wss://video.blender.org:443/tracker/socket"
