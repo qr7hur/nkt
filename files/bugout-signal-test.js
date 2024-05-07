@@ -1233,23 +1233,28 @@
         ];
         window.nkt.iceServers = [
             {
-                urls: [
-//                    'stun:stun.l.google.com:19302',
-//                    'stun:global.stun.twilio.com:3478',
-//                    'stun:stun.avigora.fr:3478',
-//                    'stun:stun.1und1.de:3478'
-                    'stun:stun.threema.ch:3478',
-                    'stun:stun.stunprotocol.org:3478',
-                    'stun:stun.root-1.de:3478',
-                ]
-            },
-            {
-                "urls": [
-                    "turn:numb.viagenie.ca"
-                ],
-                "username":"webrtc@live.com",
-                "credential":"muazkh"
-            }
+            urls: ["stun:stun.relay.metered.ca:80","stun:stun.root-1.de:3478"],
+          },
+          {
+            urls: "turn:global.relay.metered.ca:80",
+            username: "7e425b7b1ce67a1f3667e2ed",
+            credential: "jfH+2LuNJauUKfV1",
+          },
+          {
+            urls: "turn:global.relay.metered.ca:80?transport=tcp",
+            username: "7e425b7b1ce67a1f3667e2ed",
+            credential: "jfH+2LuNJauUKfV1",
+          },
+          {
+            urls: "turn:global.relay.metered.ca:443",
+            username: "7e425b7b1ce67a1f3667e2ed",
+            credential: "jfH+2LuNJauUKfV1",
+          },
+          {
+            urls: "turns:global.relay.metered.ca:443?transport=tcp",
+            username: "7e425b7b1ce67a1f3667e2ed",
+            credential: "jfH+2LuNJauUKfV1",
+          }
         ];
         window.nkt.userList = {};
         window.nkt.sentMessages = [];
