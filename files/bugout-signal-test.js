@@ -1229,7 +1229,8 @@
 //	    "wss://tracker.fastcast.nz",
 //	    "wss://tube.privacytools.io:443/tracker/socket",
 //	    "wss://video.blender.org:443/tracker/socket",
-            "wss://tracker.webtorrent.dev"
+            "wss://tracker.webtorrent.dev",
+            "wss://nkt-trackr.onrender.com"
         ];
         window.nkt.iceServers = [
             {
